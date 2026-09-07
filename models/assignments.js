@@ -5,6 +5,7 @@ const assignmentSchema = new mongoose.Schema({
     dueDate: {type:String, required:[true,"Assignment's due date expected"]},
     priority: {type:String,required:[true,"Priority level of assigment expected"],enum:["high","medium","low"]},
     status: {type:String,required:[true,"Status of assignment expected"], enum:['pending','complete','overdue']},
+    createdBy:{type:mongoose.Types.ObjectId, ref: 'user', required: true}
 })
 const model = mongoose.model('Assignment_tracker',assignmentSchema)
 module.exports = model
