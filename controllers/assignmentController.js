@@ -64,7 +64,7 @@ const updateAssignment = async (req,res) => {
         // console.log(req.body)
           const {id} = req.params
           if(req.body===undefined)   throw new badRequest("EXPECTED VALUES")
-    const assignment = await model.findOneAndUpdate({_id:id},req.body,{runValidators:true,returnDocument:'after'})
+    const assignment = await model.findOneAndUpdate({_id:id,createdBy:userID},req.body,{runValidators:true,returnDocument:'after'})
    // console.log(assignment)
     if(!assignment) throw new badRequest("Invalid assignment id")
         //const {title,course,status,priority} = assignment
@@ -84,7 +84,7 @@ const deleteAssignment = async (req,res) => {
 const getAssignment = async (req,res)=>{
         const {userID} = req.user
         const {id} = req.params
-        let assignment = await model.findOne({_id:id})
+        let assignment = await model.findOne({_id:id,createdBy:userID})
         if(!assignment) throw new badRequest('invalid assignment id')
             let date = new Date(assignment.dueDate)
             console.log(date)
